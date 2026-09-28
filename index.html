@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>i3 - Libreta Digital de Inspección en Anillo (6 Rondas)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #F8FAFC;
+        }
+        /* Estilos de visibilidad estricta para el modal */
+        .modal-backdrop {
+            display: none !important;
+        }
+        .modal-backdrop.active {
+            display: flex !important;
+        }
+        /* Estilo Neobrutalismo / Sticker 3D */
+        .sticker-card {
+            border: 4px solid #000000;
+            box-shadow: 6px 6px 0px 0px rgba(0,0,0,1);
+            transition: all 0.2s ease;
+        }
+        .sticker-card:hover {
+            box-shadow: 8px 8px 0px 0px rgba(0,0,0,1);
+        }
+        .sticker-btn {
+            border: 3px solid #000000;
+            box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
+            transition: all 0.15s ease;
+        }
+        .sticker-btn:hover:not(:disabled) {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px 0px rgba(0,0,0,1);
+        }
+        .sticker-btn:active:not(:disabled) {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px rgba(0,0,0,1);
+        }
+        .sticker-input {
+            border: 3px solid #000000;
+            box-shadow: 3px 3px 0px 0px rgba(0,0,0,1);
+        }
+        .sticker-input:focus {
+            outline: none;
+            box-shadow: 5px 5px 0px 0px #6B21A8;
+        }
+        /* Personalización de barra de desplazamiento horizontal móvil */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="text-slate-900 pb-20">
+
+    <!-- HEADER / NAVBAR -->
+    <header class="bg-purple-900 text-white border-b-4 border-black p-4 mb-6 shadow-md">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <span class="bg-yellow-400 text-black font-extrabold px-3 py-1 rounded-xl border-2 border-black text-xl shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                    i3
+                </span>
+                <div>
+                    <h1 class="text-2xl font-extrabold tracking-wide">Libreta Digital de Inspección (6 Rondas)</h1>
+                    <p class="text-xs text-yellow-300 font-semibold">Atención al Cliente 2 - Gestión de la Información</p>
+                </div>
+            </div>
+            <!-- Botón Modal Rúbrica -->
+            <button onclick="toggleModal('modal-rubrica')" class="sticker-btn bg-pink-500 hover:bg-pink-600 text-white font-extrabold py-2 px-4 rounded-xl text-sm flex items-center gap-2">
+                <span>💡</span> ¿Cómo nos van a evaluar?
+            </button>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 space-y-8">
+
+        <!-- RUTA DE TRABAJO AUTÓNOMO -->
+        <section class="sticker-card bg-yellow-400 p-4 sm:p-5 rounded-2xl">
+            <h2 class="text-lg font-extrabold text-black mb-2 flex items-center gap-2">
+                <span>🚀</span> Ruta de Trabajo Autónomo en Anillo Completo (6 Rondas)
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs font-bold">
+                <div class="bg-white p-3 rounded-xl border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                    <span class="text-purple-800">Paso 1:</span> Registro de la Comisión Auditora.
+                </div>
+                <div class="bg-white p-3 rounded-xl border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                    <span class="text-purple-800">Paso 2:</span> Completar las 6 Rondas de Inspección.
+                </div>
+                <div class="bg-white p-3 rounded-xl border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                    <span class="text-purple-800">Paso 3:</span> Transmitir datos al sistema docente.
+                </div>
+                <div class="bg-white p-3 rounded-xl border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                    <span class="text-purple-800">Paso 4:</span> Generar Comprobante PDF de Evidencia.
+                </div>
+            </div>
+        </section>
+
+        <!-- PANTALLA 1: REGISTRO DE LA COMISIÓN AUDITORA -->
+        <section class="sticker-card bg-white p-4 sm:p-6 rounded-3xl space-y-6">
+            <div class="border-b-4 border-black pb-4">
+                <span class="bg-purple-800 text-white font-extrabold text-xs px-3 py-1 rounded-full border-2 border-black uppercase tracking-wider">
+                    Pantalla 1
+                </span>
+                <h2 class="text-2xl font-extrabold text-purple-900 mt-2">Datos de la Comisión Auditora</h2>
+                <p class="text-sm font-semibold text-slate-600 mt-1">
+                    ¡Hola, Auditor I3! Bienvenido a tu libreta digital. Registra los datos de tu comisión auditora para iniciar la inspección de los 6 estands.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Materia / Módulo -->
+                <div>
+                    <label class="block font-extrabold text-xs uppercase mb-1">Módulo / Materia</label>
+                    <input type="text" id="input-materia" name="materia" value="Atención al Cliente 2" readonly class="sticker-input w-full p-3 rounded-xl bg-slate-100 font-bold text-slate-600 cursor-not-allowed">
+                </div>
+
+                <!-- ID de Actividad -->
+                <div>
+                    <label class="block font-extrabold text-xs uppercase mb-1">Código de la Actividad (Bloqueado)</label>
+                    <input type="text" id="input-actividad-id" name="actividad_id" value="Clientes_2_ACT06" readonly class="sticker-input w-full p-3 rounded-xl bg-slate-100 font-bold text-purple-900 cursor-not-allowed">
+                </div>
+
+                <!-- Ficha / Sección -->
+                <div>
+                    <label class="block font-extrabold text-xs uppercase mb-1">Ficha / Sección <span class="text-red-500">*</span></label>
+                    <input type="text" id="input-grupo" name="grupo" placeholder="Ejemplo: Ficha 102 - Jornada Mañana" class="sticker-input w-full p-3 rounded-xl font-semibold" oninput="autoSave()">
+                </div>
+
+                <!-- Nombre de la Comisión -->
+                <div>
+                    <label class="block font-extrabold text-xs uppercase mb-1">Nombre de la Comisión / Grupo Evaluador <span class="text-red-500">*</span></label>
+                    <input type="text" id="input-comision" name="comision" placeholder="Ejemplo: Auditores del Futuro" class="sticker-input w-full p-3 rounded-xl font-semibold" oninput="autoSave()">
+                </div>
+
+                <!-- Integrantes -->
+                <div class="md:col-span-2">
+                    <label class="block font-extrabold text-xs uppercase mb-1">Integrantes del Grupo Evaluador (Mínimo 1, Máximo 5) <span class="text-red-500">*</span></label>
+                    <textarea id="input-participantes" name="participantes" rows="2" placeholder="Ingresa los nombres y apellidos de los integrantes separados por coma..." class="sticker-input w-full p-3 rounded-xl font-semibold" oninput="autoSave()"></textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- PANTALLA 2: TABLERO DE CO-EVALUACIÓN (6 RONDAS) -->
+        <section class="sticker-card bg-white p-4 sm:p-6 rounded-3xl space-y-6">
+            <div class="border-b-4 border-black pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <span class="bg-teal-500 text-white font-extrabold text-xs px-3 py-1 rounded-full border-2 border-black uppercase tracking-wider">
+                        Pantalla 2
+                    </span>
+                    <h2 class="text-2xl font-extrabold text-purple-900 mt-2">Tablero de Co-evaluación (6 Rondas de Rotación)</h2>
+                    <p class="text-sm font-semibold text-slate-600">Completa la inspección detallada de los 6 estands asignados durante la rotación total.</p>
+                </div>
+                <div class="flex flex-wrap gap-1.5">
+                    <span id="badge-r1" class="sticker-btn bg-orange-500 text-white text-[11px] font-extrabold px-2.5 py-1 rounded-xl">R1 🔴</span>
+                    <span id="badge-r2" class="sticker-btn bg-orange-500 text-white text-[11px] font-extrabold px-2.5 py-1 rounded-xl">R2 🔴</span>
+                    <span id="badge-r3" class="sticker-btn bg-orange-500 text-white text-[11px] font-extrabold px-2.5 py-1 rounded-xl">R3 🔴</span>
+                    <span id="badge-r4" class="sticker-btn bg-orange-500 text-white text-[11px] font-extrabold px-2.5 py-1 rounded-xl">R4 🔴</span>
+                    <span id="badge-r5" class="sticker-btn bg-orange-500 text-white text-[11px] font-extrabold px-2.5 py-1 rounded-xl">R5 🔴</span>
+                    <span id="badge-r6" class="sticker-btn bg-orange-500 text-white text-[11px] font-extrabold px-2.5 py-1 rounded-xl">R6 🔴</span>
+                </div>
+            </div>
+
+            <!-- CONTENEDOR DE PESTAÑAS / RONDAS -->
+            <div class="space-y-6">
+                <div class="flex overflow-x-auto whitespace-nowrap no-scrollbar border-b-4 border-black gap-1.5 pb-2">
+                    <button onclick="switchRonda(1)" id="tab-btn-1" class="sticker-btn bg-teal-400 text-black font-extrabold py-2 px-3.5 rounded-t-xl text-xs sm:text-sm border-b-0 flex-shrink-0">
+                        📍 Ronda 1
+                    </button>
+                    <button onclick="switchRonda(2)" id="tab-btn-2" class="sticker-btn bg-slate-200 text-black font-extrabold py-2 px-3.5 rounded-t-xl text-xs sm:text-sm border-b-0 flex-shrink-0">
+                        📍 Ronda 2
+                    </button>
+                    <button onclick="switchRonda(3)" id="tab-btn-3" class="sticker-btn bg-slate-200 text-black font-extrabold py-2 px-3.5 rounded-t-xl text-xs sm:text-sm border-b-0 flex-shrink-0">
+                        📍 Ronda 3
+                    </button>
+                    <button onclick="switchRonda(4)" id="tab-btn-4" class="sticker-btn bg-slate-200 text-black font-extrabold py-2 px-3.5 rounded-t-xl text-xs sm:text-sm border-b-0 flex-shrink-0">
+                        📍 Ronda 4
+                    </button>
+                    <button onclick="switchRonda(5)" id="tab-btn-5" class="sticker-btn bg-slate-200 text-black font-extrabold py-2 px-3.5 rounded-t-xl text-xs sm:text-sm border-b-0 flex-shrink-0">
+                        📍 Ronda 5
+                    </button>
+                    <button onclick="switchRonda(6)" id="tab-btn-6" class="sticker-btn bg-slate-200 text-black font-extrabold py-2 px-3.5 rounded-t-xl text-xs sm:text-sm border-b-0 flex-shrink-0">
+                        📍 Ronda 6
+                    </button>
+                </div>
+
+                <!-- RONDA 1 -->
+                <div id="ronda-content-1" class="ronda-block space-y-5 bg-teal-50 p-3 sm:p-4 rounded-2xl border-2 border-teal-500">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-extrabold text-xs uppercase mb-1">Grupo Evaluado (Estand) <span class="text-red-500">*</span></label>
+                            <select id="r1-grupo-evaluado" name="r1_grupo_evaluado" class="sticker-input w-full p-3 rounded-xl font-semibold bg-white" onchange="autoSave()">
+                                <option value="">-- Seleccionar Estand --</option>
+                                <option value="Grupo 1">Estand / Grupo 1</option>
+                                <option value="Grupo 2">Estand / Grupo 2</option>
+                                <option value="Grupo 3">Estand / Grupo 3</option>
+                                <option value="Grupo 4">Estand / Grupo 4</option>
+                                <option value="Grupo 5">Estand / Grupo 5</option>
+                                <option value="Grupo 6">Estand / Grupo 6</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-extrabold text-xs uppercase mb-1">Tema de la Infografía Revisada <span class="text-red-500">*</span></label>
+                            <select id="r1-tema-revisado" name="r1_tema_revisado" class="sticker-input w-full p-3 rounded-xl font-semibold bg-white" onchange="autoSave()">
+                                <option value="">-- Seleccionar Tema --</option>
+                                <option value="Tema 1: Proteccion de Datos">Tema 1: Protección de Datos Personales</option>
+                                <option value="Tema 2: Gestion de PQRS">Tema 2: Gestión y Tiempos de Respuesta PQRS</option>
+                                <option value="Tema 3: Normativa SIC">Tema 3: Superintendencia de Industria y Comercio</option>
+                                <option value="Tema 4: Custodia Documental">Tema 4: Custodia y Gestión Documental</option>
+                                <option value="Tema 5: Seguridad de Informacion">Tema 5: Seguridad de Información del Cliente</option>
+                                <option value="Tema 6: Canales Omnicanal">Tema 6: Canales y Protocolos Digitales</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-xl border-2 border-black">
+                            <label class="block font-extrabold text-sm text-purple-900 mb-1">1. Coherencia Conceptual</label>
+                            <p class="text-xs font-bold text-slate-500 mb-2">¿La infografía de tus compañeros responde de forma clara y directa a la pregunta principal de su tema? (Mínimo 10 caracteres)</p>
+                            <textarea id="r1-q1" name="r1_q1" rows="2" class="sticker-input w-full p-3 rounded-xl font-semibold" placeholder="Describe la claridad del concepto expuesto..." oninput="autoSave()"></textarea>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border-2 border-black">
+                            <label class="block font-extrabold text-sm text-purple-900 mb-1">2. Certeza y Fuentes Oficiales</label>
+                            <p class="text-xs font-bold text-slate-500 mb-2">¿Qué ley, norma o entidad oficial de Colombia citaron? (ej. Ley 1581, SIC, Archivo General de la Nación)</p>
+                            <input type="text" id="r1-q2" name="r1_q2" class="sticker-input w-full p-3 rounded-xl font-semibold" placeholder="Indica las leyes o entidades citadas..." oninput="autoSave()">
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border-2 border-black">
+                            <label class="block font-extrabold text-sm text-purple-900 mb-1">3. Aplicación en la Realidad Empresarial</label>
+                            <p class="text-xs font-bold text-slate-500 mb-2">Si una empresa no cumple con lo que muestra esta infografía, ¿qué problema o riesgo real puede tener?</p>
+                            <textarea id="r1-q3" name="r1_q3" rows="2" class="sticker-input w-full p-3 rounded-xl font-semibold" placeholder="Explica las sanciones, multas o pérdidas de clientes..." oninput="autoSave()"></textarea>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border-2 border-black">
+                            <label class="block font-extrabold text-sm text-purple-900 mb-1">4. Aprendizaje de la Comisión</label>
+                            <p class="text-xs font-bold text-slate-500 mb-2">Como auditor: ¿Qué dato, norma o idea clave APRENDIÓ tu equipo hoy al revisar esta infografía?</p>
+                            <textarea id="r1-q4" name="r1_q4" rows="2" class="sticker-input w-full p-3 rounded-xl font-semibold" placeholder="Anota el descubrimiento o aprendizaje principal..." oninput="autoSave()"></textarea>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border-2 border-black space-y-2">
+                            <label class="block font-extrabold text-sm text-purple-900">5. Pregunta Inédita y Defensa Técnica</label>
+                            <div>
+                                <span class="text-xs font-extrabold uppercase text-slate-600">A. Pregunta realizada al vocero:</span>
+                                <input type="text" id="r1-q5a" name="r1_q5a" class="sticker-input w-full p-2.5 rounded-xl font-semibold text-sm mt-1" placeholder="¿Qué pregunta profunda les formularon?" oninput="autoSave()">
+                            </div>
+                            <div>
+                                <span class="text-xs font-extrabold uppercase text-slate-600">B. Respuesta entregada por el vocero:</span>
+                                <input type="text" id="r1-q5b" name="r1_q5b" class="sticker-input w-full p-2.5 rounded-xl font-semibold text-sm mt-1" placeholder="¿Cómo justificó o defendió el tema?" oninput="autoSave()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RONDA 2 -->
+                <div id="ronda-content-2" class="ronda-block hidden space-y-5 bg-purple-50 p-3 sm:p-4 rounded-2xl border-2 border-purple-500">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-extrabold text-xs uppercase mb-1">Grupo Evaluado (Estand) <span class="text-red-500">*</span></label>
+                            <select id="r2-grupo-evaluado" name="r2_grupo_evaluado" class="sticker-input w-full p-3 rounded-xl font-semibold bg-white" onchange="autoSave()">
+                                <option value="">-- Seleccionar Estand --</option>
+                                <option value="Grupo 1">Estand / Grupo 1</option>
+                                <option value="Grupo 2">Estand / Grupo 2</option>
+                                <option value="Grupo 3">Estand / Grupo 3</option>
+                                <option value="Grupo 4">Estand / Grupo 4</option>
+                                <option value="Grupo 5">Estand / Grupo 5</option>
+                                <option value="Grupo 6">Estand / Grupo 6</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-extrabold text-xs uppercase mb-1">Tema de la Infografía Revisada <span class="text-red-500">*</span></label>
+                            <select id="r2-tema-revisado" name="r2_tema_revisado" class="sticker-input w-full p-3 rounded-xl font-semibold bg-white" onchange="autoSave()">
+                                <option value="">-- Seleccionar Tema --</option>
+                                <option value="Tema 1: Proteccion de Datos">Tema 1: Protección de Datos Personales</option>
+                                <option value="Tema 2: Gestion de PQRS">Tema 2: Gestión y Tiempos de Respuesta PQRS</option>
+                                <option value="Tema 3: Normativa SIC">Tema 3: Superintendencia de Industria y Comercio</option>
+                                <option value="Tema 4: Custodia Documental">Tema 4: Custodia y Gestión Documental</option>
+                                <option value="Tema 5: Seguridad de Informacion">Tema 5: Seguridad de Información del Cliente</option>
+                                <option value="Tema 6: Canales Omnicanal">Tema 6: Canales y Protocolos Digitales</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-xl border-2 border-black">
+                            <label class="block font-extrabold text-sm text-purple-900 mb-1">1. Coherencia Conceptual</label>
+                            <p class="text-xs font-bold text-slate-500 mb-2">¿La infografía de tus compañeros responde de forma clara y directa a la pregunta principal de su tema? (Mínimo 10 caracteres)</p>
+                            <textarea id="r2-q1" name="r2_q1" rows="2" class="sticker-input w-full p-3 rounded-xl font-semibold" placeholder="Describe la claridad del concepto expuesto..." oninput="autoSave()"></textarea>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border-2 border-black">
+                            <label class="block font-extrabold text-sm text-purple-900 mb-1">2. Certeza y Fuentes Oficiales</label>
+                            <p class="text-xs font-bold text-slate-500 mb-2">¿Qué ley, norma o entidad oficial de Colombia citaron? (ej. Ley 1581, SIC, Archivo General de la Nación)</p>
+                            <input type="text" id="r2-q2" name="r2_q2" class="sticker-input w-full p-3 rounded-xl font-semibold" placeholder="Indica las leyes o entidades citadas..." oninput="autoSave()">
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border-2 border-black">
+                            <label class="block font-extrabold text-sm text-purple-900 mb-1">3. Aplicación en la Realidad Empresarial</label>
+                            <p class="text-xs font-bold text-slate-500 mb-2">Si una empresa no cumple con lo que muestra esta infografía, ¿qué problema o riesgo real puede tener?</p>
+                            <textarea id="r2-q3" name="r2_q3" rows="2" class="sticker-input w-full p-3 rounded-xl font-semibold" placeholder="Explica las sanciones, multas o pérdidas de clientes..." oninput="autoSave()"></textarea>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border-2 border-black">
+                            <label class="block font-extrabold text-sm text-purple-900 mb-1">4. Aprendizaje de la Comisión</label>
+                            <p class="text-xs font-bold text-slate-500 mb-2">Como auditor: ¿Qué dato, norma o idea clave APRENDIÓ tu equipo hoy al revisar esta infografía?</p>
+                            <textarea id="r2-q4" name="r2_q4" rows="2" class="sticker-input w-full p-3 rounded-xl font-semibold" placeholder="Anota el descubrimiento o aprendizaje principal..." oninput="autoSave()"></textarea>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border-2 border-black space-y-2">
+                            <label class="block font-extrabold text-sm text-purple-900">5. Pregunta Inédita y Defensa Técnica</label>
+                            <div>
+                                <span class="text-xs font-extrabold uppercase text-slate-600">A. Pregunta realizada al vocero:</span>
+                                <input type="text" id="r2-q5a" name="r2_q5a" class="sticker-input w-full p-2.5 rounded-xl font-semibold text-sm mt-1" placeholder="¿Qué pregunta profunda les formularon?" oninput="autoSave()">
+                            </div>
+                            <div>
+                                <span class="text-xs font-extrabold uppercase text-slate-600">B. Respuesta entregada por el vocero:</span>
+                                <input type="text" id="r2-q5b" name="r2_q5b" class="sticker-input w-full p-2.5 rounded-xl font-semibold text-sm mt-1" placeholder="¿Cómo justificó o defendedió el tema?" oninput="autoSave()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RONDA 3 -->
+                <div id="ronda-content-3" class="ronda-block hidden space-y-5 bg-amber-50 p-3 sm:p-4 rounded-2xl border-2 border-amber-500">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-extrabold text-xs uppercase mb-1">Grupo Evaluado (Estand) <span class="text-red-500">*</span></label>
+                            <select id="r3-grupo-evaluado" name="r3_grupo_evaluado" class="sticker-input w-full p-3 rounded-xl font-semibold bg-white" onchange="autoSave()">
+                                <option value="">-- Seleccionar Estand --</option>
+                                <option value="Grupo 1">Estand / Grupo 1</option>
+                                <option value="Grupo 2">Estand / Grupo 2</option>
+                                <option value="Grupo 3">Estand / Grupo 3</option>
+                                <option value="Grupo 4">Estand / Grupo 4</option>
+                                <option value="Grupo 5">Estand / Grupo 5</option>
+                                <option value="Grupo 6">Estand / Grupo 6</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-extrabold text-xs uppercase mb-1">Tema de la Infografía Revisada <span class="text-red-500">*</span></label>
+                            <select id="r3-tema-revisado" name="r3_tema_revisado" class="sticker-input w-full p-3 rounded-xl font-semibold bg-white" onchange="autoSave()">
+                                <option value="">-- Seleccionar Tema --</option>
+                                <option value="Tema 1: Proteccion de Datos">Tema 1: Protección de Datos Personales</option>
+                                <option value="Tema 2: Gestion de PQRS">Tema 2: Gestión y Tiempos de Respuesta PQRS</option>
+                                <option value="Tema 3: Normativa SIC">Tema 3: Superintendencia de Industria y Comercio</option>
+                                <option value="Tema 4: Custodia Documental">Tema 4: Custodia y Gestión Documental</option>
+                                <option value="Tema 5: Seguridad de Informacion">Tema 5: Seguridad de Información del Cliente</option>
+                                <option value="Tema 6: Canales Omnicanal">Tema 6: Canales y Protocolos Digitales</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-xl border-2 border-black">
+                            <label class="block font-extrabold text-sm text-purple-900 mb-1">1. Coherencia Conceptual</label>
+                            <p class="text-xs font-bold text-slate-500 mb-2">¿La infografía de tus compañeros responde de forma clara y directa a la pregunta principal de su tema? (Mínimo 10 caracteres)</p>
+                            <textarea id="r3-q1" name="r3_q1" rows="2" class="sticker-input w-full p-3 rounded-xl font-semibold" placeholder="Describe la claridad del concepto expuesto..." oninput="autoSave()"></textarea>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border-2 border-black">
+                            <label class="block font-extrabold text-sm text-purple-900 mb-1">2. Certeza y Fuentes Oficiales</label>
+                            <p class="text-xs font-bold text-slate-500 mb-2">¿Qué ley, norma o entidad oficial de Colombia citaron? (ej. Ley 1581, SIC, Archivo General de la Nación)</p>
+                            <input type="text" id="r3-q2" name="r3_q2" class="sticker-input w-full p-3 rounded-xl font-semibold" placeholder="Indica las leyes o entidades citadas..." oninput="autoSave()">
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border-2 border-black">
+                            <label class="block font-extrabold text-sm text-purple-900 mb-1">3. Aplicación en la Realidad Empresarial</label>
+                            <p class="text-xs font-bold text-slate-500 mb-2">Si una empresa no cumple con lo que muestra esta infografía, ¿qué problema o riesgo real puede tener?</p>
+                            <textarea id="r3-q3" name="r3_q3" rows="2" class="sticker-input w-full p-3 rounded-xl font-semibold" placeholder="Explica las sanciones, multas o pérdidas de clientes..." oninput="autoSave()"></textarea>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border-2 border-black">
+                            <label class="block font-extrabold text-sm text-purple-900 mb-1">4. Aprendizaje de la Comisión</label>
+                            <p class="text-xs font-bold text-slate-500 mb-2">Como auditor: ¿Qué dato, norma o idea clave APRENDIÓ tu equipo hoy al revisar esta infografía?</p>
+                            <textarea id="r3-q4" name="r3_q4" rows="2" class="sticker-input w-full p-3 rounded-xl font-semibold" placeholder="Anota el descubrimiento o aprendizaje principal..." oninput="autoSave()"></textarea>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border-2 border-black space-y-2">
+                            <label class="block font-extrabold text-sm text-purple-900">5. Pregunta Inédita y Defensa Técnica</label>
+                            <div>
+                                <span class="text-xs font-extrabold uppercase text-slate-600">A. Pregunta realizada al vocero:</span>
+                                <input type="text" id="r3-q5a" name="r3_q5a" class="sticker-input w-full p-2.5 rounded-xl font-semibold text-sm mt-1" placeholder="¿Qué pregunta profunda les formularon?" oninput="autoSave()">
+                            </div>
+                            <div>
+                                <span class="text-xs font-extrabold uppercase text-slate-600">B. Respuesta entregada por el vocero:</span>
+                                <input type="text" id="r3-q5b" name="r3_q5b" class="sticker-input w-full p-2.5 rounded-xl font-semibold text-sm mt-1" placeholder="¿Cómo justificó o defendedió el tema?" oninput="autoSave()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RONDA 4 -->
+                <div id="ronda-content-4" class="ronda-block hidden space-y-5 bg-rose-50 p-3 sm:p-4 rounded-2xl border-2 border-rose-500">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-extrabold text-xs uppercase mb-1">Grupo Evaluado (Estand) <span class="text-red-500">*</span></label>
+                            <select id="r4-grupo-evaluado" name="r4_grupo_evaluado" class="sticker-input w-full p-3 rounded-xl font-semibold bg-white" onchange="autoSave()">
+                                <option value="">-- Seleccionar Estand --</option>
+                                <option value="Grupo 1">Estand / Grupo 1</option>
+                                <option value="Grupo 2">Estand / Grupo 2</option>
+                                <option value="Grupo 3">Estand / Grupo 3</option>
+                                <option value="Grupo 4">Estand / Grupo 4</option>
+                                <option value="Grupo 5">Estand / Grupo 5</option>
+                                <option value="Grupo 6">Estand / Grupo 6</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-extrabold text-xs uppercase mb-1">Tema de la Infografía Revisada <span class="text-red-500">*</span></label>
+                            <select id="r4-tema-revisado" name="r4_tema_revisado" class="sticker-input w-full p-3 rounded-xl font-semibold bg-white" onchange="autoSave()">
+                                <option value="">-- Seleccionar Tema --</option>
+                                <option value="Tema 1: Proteccion de Datos">Tema 1: Protección de Datos Personales</option>
+                                <option value="Tema 2: Gestion de PQRS">Tema 2: Gestión y Tiempos de Respuesta PQRS</option>
+                                <option value="Tema 3: Normativa SIC">Tema 3: Superintendencia de Industria y Comercio</option>
+                                <option value="Tema 4: Custodia Documental">Tema 4: Custodia y Gestión Documental</option>
+                                <option value="Tema 5: Seguridad de Informacion">Tema 5: Seguridad de Información del Cliente</option>
+                                <option value="Tema 6: Canales Omnicanal">Tema 6: Canales y Protocolos Digitales</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-xl border-2 border-black">
+                            <label class="block font-extrabold text-sm text-purple-900 mb-1">1. Coherencia Conceptual</label>
+                            <p class="text-xs font-bold text-slate-500 mb-2">¿La infografía de tus compañeros responde de forma clara y directa a la pregunta principal de su tema? (Mínimo 10 caracteres)</p>
+                            <textarea id="r4-q1" name="r4_q1" rows="2" class="sticker-input w-full p-3 rounded-xl font-semibold" placeholder="Describe la claridad del concepto expuesto..." oninput="autoSave()"></textarea>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border-2 border-black">
+                            <label class="block font-extrabold text-sm text-purple-900 mb-1">2. Certeza y Fuentes Oficiales</label>
+                            <p class="text-xs font-bold text-slate-500 mb-2">¿Qué ley, norma o entidad oficial de Colombia citaron? (ej. Ley 1581, SIC, Archivo General de la Nación)</p>
+                            <input type="text" id="r4-q2" name="r4_q2" class="sticker-input w-full p-3 rounded-xl font-semibold" placeholder="Indica las leyes o entidades citadas..." oninput="autoSave()">
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border-2 border-black">
+                            <label class="block font-extrabold text-sm text-purple-900 mb-1">3. Aplicación en la Realidad Empresarial</label>
+                            <p class="text-xs font-bold text-slate-500 mb-2">Si una empresa no cumple con lo que muestra esta infografía, ¿qué problema o riesgo real puede tener?</p>
+                            <textarea id="r4-q3" name="r4_q3" rows="2" class="sticker-input w-full p-3 rounded-xl font-semibold" placeholder="Explica las sanciones, multas o pérdidas de clientes..." oninput="autoSave()"></textarea>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border-2 border-black">
+                            <label class="block font-extrabold text-sm text-purple-900 mb-1">4. Aprendizaje de la Comisión</label>
+                            <p class="text-xs font-bold text-slate-500 mb-2">Como auditor: ¿Qué dato, norma o idea clave APRENDIÓ tu equipo hoy al revisar esta infografía?</p>
+                            <textarea id="r4-q4" name="r4_q4" rows="2" class="sticker-input w-full p-3 rounded-xl font-semibold" placeholder="Anota el descubrimiento o aprendizaje principal..." oninput="autoSave()"></textarea>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border-2 border-black space-y-2">
+                            <label class="block font-extrabold text-sm text-purple-900">5. Pregunta Inédita y Defensa Técnica</label>
+                            <div>
+                                <span class="text-xs font-extrabold uppercase text-slate-600">A. Pregunta realizada al vocero:</span>
+                                <input type="text" id="r4-q5a" name="r4_q5a" class="sticker-input w-full p-2.5 rounded-xl font-semibold text-sm mt-1" placeholder="¿Qué pregunta profunda les formularon?" oninput="autoSave()">
+                            </div>
+                            <div>
+                                <span class="text-xs font-extrabold uppercase text-slate-600">B. Respuesta entregada por el vocero:</span>
+                                <input type="text" id="r4-q5b" name="r4_q5b" class="sticker-input w-full p-2.5 rounded-xl font-semibold text-sm mt-1" placeholder="¿Cómo justificó o defendedió el tema?" oninput="autoSave()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RONDA 5 -->
+                <div id="ronda-content-5" class="ronda-block hidden space-y-5 bg-indigo-50 p-3 sm:p-4 rounded-2xl border-2 border-indigo-500">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-extrabold text-xs uppercase mb-1">Grupo Evaluado (Estand) <span class="text-red-500">*</span></label>
+                            <select id="r5-grupo-evaluado" name="r5_grupo_evaluado" class="sticker-input w-full p-3 rounded-xl font-semibold bg-white" onchange="autoSave()">
+                                <option value="">-- Seleccionar Estand --</option>
+                                <option value="Grupo 1">Estand / Grupo 1</option>
+                                <option value="Grupo 2">Estand / Grupo 2</option>
+                                <option value="Grupo 3">Estand / Grupo 3</option>
+                                <option value="Grupo 4">Estand / Grupo 4</option>
+                                <option value="Grupo 5">Estand / Grupo 5</option>
+                                <option value="Grupo 6">Estand / Grupo 6</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-extrabold text-xs uppercase mb-1">Tema de la Infografía Revisada <span class="text-red-500">*</span></label>
+                            <select id="r5-tema-revisado" name="r5_tema_revisado" class="sticker-input w-full p-3 rounded-xl font-semibold bg-white" onchange="autoSave()">
+                                <option value="">-- Seleccionar Tema --</option>
+                                <option value="Tema 1: Proteccion de Datos">Tema 1: Protección de Datos Personales</option>
+                                <option value="Tema 2: Gestion de PQRS">Tema 2: Gestión y Tiempos de Respuesta PQRS</option>
+                                <option value="Tema 3: Normativa SIC">Tema 3: Superintendencia de Industria y Comercio</option>
+                                <option value="Tema 4: Custodia Documental">Tema 4: Custodia y Gestión Documental</option>
+                                <option value="Tema 5: Seguridad de Informacion">Tema 5: Seguridad de Información del Cliente</option>
+                                <option value="Tema 6: Canales Omnicanal">Tema 6: Canales y Protocolos Digitales</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-xl border-2 border-black">
+                            <label class="block font-extrabold text-sm text-purple-900 mb-1">1. Coherencia Conceptual</label>
+                            <p class="text-xs font-bold text-slate-500 mb-2">¿La infografía de tus compañeros responde de forma clara y directa a la pregunta principal de su tema? (Mínimo 10 caracteres)</p>
+                            <textarea id="r5-q1" name="r5_q1" rows="2" class="sticker-input w-full p-3 rounded-xl font-semibold" placeholder="Describe la claridad del concepto expuesto..." oninput="autoSave()"></textarea>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border-2 border-black">
+                            <label class="block font-extrabold text-sm text-purple-900 mb-1">2. Certeza y Fuentes Oficiales</label>
+                            <p class="text-xs font-bold text-slate-500 mb-2">¿Qué ley, norma o entidad oficial de Colombia citaron? (ej. Ley 1581, SIC, Archivo General de la Nación)</p>
+                            <input type="text" id="r5-q2" name="r5_q2" class="sticker-input w-full p-3 rounded-xl font-semibold" placeholder="Indica las leyes o entidades citadas..." oninput="autoSave()">
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border-2 border-black">
+                            <label class="block font-extrabold text-sm text-purple-900 mb-1">3. Aplicación en la Realidad Empresarial</label>
+                            <p class="text-xs font-bold text-slate-500 mb-2">Si una empresa no cumple con lo que muestra esta infografía, ¿qué problema o riesgo real puede tener?</p>
+                            <textarea id="r5-q3" name="r5_q3" rows="2" class="sticker-input w-full p-3 rounded-xl font-semibold" placeholder="Explica las sanciones, multas o pérdidas de clientes..." oninput="autoSave()"></textarea>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border-2 border-black">
+                            <label class="block font-extrabold text-sm text-purple-900 mb-1">4. Aprendizaje de la Comisión</label>
+                            <p class="text-xs font-bold text-slate-500 mb-2">Como auditor: ¿Qué dato, norma o idea clave APRENDIÓ tu equipo hoy al revisar esta infografía?</p>
+                            <textarea id="r5-q4" name="r5_q4" rows="2" class="sticker-input w-full p-3 rounded-xl font-semibold" placeholder="Anota el descubrimiento o aprendizaje principal..." oninput="autoSave()"></textarea>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border-2 border-black space-y-2">
+                            <label class="block font-extrabold text-sm text-purple-900">5. Pregunta Inédita y Defensa Técnica</label>
+                            <div>
+                                <span class="text-xs font-extrabold uppercase text-slate-600">A. Pregunta realizada al vocero:</span>
+                                <input type="text" id="r5-q5a" name="r5_q5a" class="sticker-input w-full p-2.5 rounded-xl font-semibold text-sm mt-1" placeholder="¿Qué pregunta profunda les formularon?" oninput="autoSave()">
+                            </div>
+                            <div>
+                                <span class="text-xs font-extrabold uppercase text-slate-600">B. Respuesta entregada por el vocero:</span>
+                                <input type="text" id="r5-q5b" name="r5_q5b" class="sticker-input w-full p-2.5 rounded-xl font-semibold text-sm mt-1" placeholder="¿Cómo justificó o defendió el tema?" oninput="autoSave()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RONDA 6 -->
+                <div id="ronda-content-6" class="ronda-block hidden space-y-5 bg-emerald-50 p-3 sm:p-4 rounded-2xl border-2 border-emerald-500">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-extrabold text-xs uppercase mb-1">Grupo Evaluado (Estand) <span class="text-red-500">*</span></label>
+                            <select id="r6-grupo-evaluado" name="r6_grupo_evaluado" class="sticker-input w-full p-3 rounded-xl font-semibold bg-white" onchange="autoSave()">
+                                <option value="">-- Seleccionar Estand --</option>
+                                <option value="Grupo 1">Estand / Grupo 1</option>
+                                <option value="Grupo 2">Estand / Grupo 2</option>
+                                <option value="Grupo 3">Estand / Grupo 3</option>
+                                <option value="Grupo 4">Estand / Grupo 4</option>
+                                <option value="Grupo 5">Estand / Grupo 5</option>
+                                <option value="Grupo 6">Estand / Grupo 6</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-extrabold text-xs uppercase mb-1">Tema de la Infografía Revisada <span class="text-red-500">*</span></label>
+                            <select id="r6-tema-revisado" name="r6_tema_revisado" class="sticker-input w-full p-3 rounded-xl font-semibold bg-white" onchange="autoSave()">
+                                <option value="">-- Seleccionar Tema --</option>
+                                <option value="Tema 1: Proteccion de Datos">Tema 1: Protección de Datos Personales</option>
+                                <option value="Tema 2: Gestion de PQRS">Tema 2: Gestión y Tiempos de Respuesta PQRS</option>
+                                <option value="Tema 3: Normativa SIC">Tema 3: Superintendencia de Industria y Comercio</option>
+                                <option value="Tema 4: Custodia Documental">Tema 4: Custodia y Gestión Documental</option>
+                                <option value="Tema 5: Seguridad de Informacion">Tema 5: Seguridad de Información del Cliente</option>
+                                <option value="Tema 6: Canales Omnicanal">Tema 6: Canales y Protocolos Digitales</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-xl border-2 border-black">
+                            <label class="block font-extrabold text-sm text-purple-900 mb-1">1. Coherencia Conceptual</label>
+                            <p class="text-xs font-bold text-slate-500 mb-2">¿La infografía de tus compañeros responde de forma clara y directa a la pregunta principal de su tema? (Mínimo 10 caracteres)</p>
+                            <textarea id="r6-q1" name="r6_q1" rows="2" class="sticker-input w-full p-3 rounded-xl font-semibold" placeholder="Describe la claridad del concepto expuesto..." oninput="autoSave()"></textarea>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border-2 border-black">
+                            <label class="block font-extrabold text-sm text-purple-900 mb-1">2. Certeza y Fuentes Oficiales</label>
+                            <p class="text-xs font-bold text-slate-500 mb-2">¿Qué ley, norma o entidad oficial de Colombia citaron? (ej. Ley 1581, SIC, Archivo General de la Nación)</p>
+                            <input type="text" id="r6-q2" name="r6_q2" class="sticker-input w-full p-3 rounded-xl font-semibold" placeholder="Indica las leyes o entidades citadas..." oninput="autoSave()">
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border-2 border-black">
+                            <label class="block font-extrabold text-sm text-purple-900 mb-1">3. Aplicación en la Realidad Empresarial</label>
+                            <p class="text-xs font-bold text-slate-500 mb-2">Si una empresa no cumple con lo que muestra esta infografía, ¿qué problema o riesgo real puede tener?</p>
+                            <textarea id="r6-q3" name="r6_q3" rows="2" class="sticker-input w-full p-3 rounded-xl font-semibold" placeholder="Explica las sanciones, multas o pérdidas de clientes..." oninput="autoSave()"></textarea>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border-2 border-black">
+                            <label class="block font-extrabold text-sm text-purple-900 mb-1">4. Aprendizaje de la Comisión</label>
+                            <p class="text-xs font-bold text-slate-500 mb-2">Como auditor: ¿Qué dato, norma o idea clave APRENDIÓ tu equipo hoy al revisar esta infografía?</p>
+                            <textarea id="r6-q4" name="r6_q4" rows="2" class="sticker-input w-full p-3 rounded-xl font-semibold" placeholder="Anota el descubrimiento o aprendizaje principal..." oninput="autoSave()"></textarea>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border-2 border-black space-y-2">
+                            <label class="block font-extrabold text-sm text-purple-900">5. Pregunta Inédita y Defensa Técnica</label>
+                            <div>
+                                <span class="text-xs font-extrabold uppercase text-slate-600">A. Pregunta realizada al vocero:</span>
+                                <input type="text" id="r6-q5a" name="r6_q5a" class="sticker-input w-full p-2.5 rounded-xl font-semibold text-sm mt-1" placeholder="¿Qué pregunta profunda les formularon?" oninput="autoSave()">
+                            </div>
+                            <div>
+                                <span class="text-xs font-extrabold uppercase text-slate-600">B. Respuesta entregada por el vocero:</span>
+                                <input type="text" id="r6-q5b" name="r6_q5b" class="sticker-input w-full p-2.5 rounded-xl font-semibold text-sm mt-1" placeholder="¿Cómo justificó o defendió el tema?" oninput="autoSave()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTONES UTILITARIOS JSON -->
+            <div class="flex flex-wrap gap-3 pt-4 border-t-2 border-slate-200">
+                <button onclick="downloadBackup()" class="sticker-btn bg-slate-800 text-white font-bold py-2 px-4 rounded-xl text-xs flex items-center gap-2">
+                    💾 Descargar Copia JSON
+                </button>
+                <label class="sticker-btn bg-slate-200 text-black font-bold py-2 px-4 rounded-xl text-xs cursor-pointer flex items-center gap-2">
+                    📂 Cargar Copia JSON
+                    <input type="file" accept=".json" onchange="handleFileUpload(event)" class="hidden">
+                </label>
+            </div>
+        </section>
+
+        <!-- PANTALLA 3: CONSOLA DE CIERRE, TRANSMISIÓN Y PDF -->
+        <section class="sticker-card bg-white p-4 sm:p-6 rounded-3xl space-y-6">
+            <div class="border-b-4 border-black pb-4">
+                <span class="bg-orange-500 text-white font-extrabold text-xs px-3 py-1 rounded-full border-2 border-black uppercase tracking-wider">
+                    Pantalla 3
+                </span>
+                <h2 class="text-2xl font-extrabold text-purple-900 mt-2">Consola de Transmisión y Cierre</h2>
+                <p class="text-sm font-semibold text-slate-600">Verifica que tus 6 rondas estén listas antes de transmitir.</p>
+            </div>
+
+            <!-- RESUMEN DE VALIDACIÓN DE LAS 6 RONDAS -->
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 font-extrabold text-xs sm:text-sm">
+                <div id="check-r1" class="p-2.5 bg-red-100 border-2 border-black rounded-xl text-red-800 flex items-center gap-2">
+                    <span>❌</span> R1: Incompleta
+                </div>
+                <div id="check-r2" class="p-2.5 bg-red-100 border-2 border-black rounded-xl text-red-800 flex items-center gap-2">
+                    <span>❌</span> R2: Incompleta
+                </div>
+                <div id="check-r3" class="p-2.5 bg-red-100 border-2 border-black rounded-xl text-red-800 flex items-center gap-2">
+                    <span>❌</span> R3: Incompleta
+                </div>
+                <div id="check-r4" class="p-2.5 bg-red-100 border-2 border-black rounded-xl text-red-800 flex items-center gap-2">
+                    <span>❌</span> R4: Incompleta
+                </div>
+                <div id="check-r5" class="p-2.5 bg-red-100 border-2 border-black rounded-xl text-red-800 flex items-center gap-2">
+                    <span>❌</span> R5: Incompleta
+                </div>
+                <div id="check-r6" class="p-2.5 bg-red-100 border-2 border-black rounded-xl text-red-800 flex items-center gap-2">
+                    <span>❌</span> R6: Incompleta
+                </div>
+            </div>
+
+            <!-- BOTONES DE ACCIÓN FINAL -->
+            <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                <button id="btn-send" onclick="sendData()" class="sticker-btn bg-purple-700 hover:bg-purple-800 text-white font-extrabold py-4 px-6 rounded-2xl flex-1 text-base flex items-center justify-center gap-2">
+                    📤 Transmitir Co-evaluaciones al Docente ▶
+                </button>
+
+                <button onclick="openPreview()" class="sticker-btn bg-lime-400 hover:bg-lime-500 text-black font-extrabold py-4 px-6 rounded-2xl flex-1 text-base flex items-center justify-center gap-2">
+                    📄 Exportar Comprobante PDF / Imprimir ▶
+                </button>
+            </div>
+            
+            <p id="send-status" class="text-xs font-bold text-center hidden"></p>
+        </section>
+
+    </main>
+
+    <!-- MODAL CRITERIOS DE EVALUACIÓN (RÚBRICA) -->
+    <div id="modal-rubrica" class="modal-backdrop fixed inset-0 bg-black/70 z-50 items-center justify-center p-4">
+        <div class="sticker-card bg-white max-w-2xl w-full p-6 rounded-3xl space-y-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b-4 border-black pb-3">
+                <h3 class="text-xl font-extrabold text-purple-900 flex items-center gap-2">
+                    <span>🏆</span> Criterios de Evaluación del Taller
+                </h3>
+                <button onclick="toggleModal('modal-rubrica')" class="text-2xl font-black hover:text-red-500">✕</button>
+            </div>
+            <p class="text-xs font-bold text-slate-600">
+                Tu calificación en este taller se calculará a partir del rigor y detalle con el que llenes las 6 rondas de esta libreta de inspección.
+            </p>
+
+            <div class="space-y-3 text-xs font-semibold">
+                <div class="p-3 bg-purple-50 rounded-xl border-2 border-black">
+                    <strong class="text-purple-900 block text-sm mb-1">1. Compleitud del Anillo Completo (20%)</strong>
+                    Diligenciamiento íntegro de las 6 rondas de inspección sin omitir campos ni preguntas.
+                </div>
+                <div class="p-3 bg-teal-50 rounded-xl border-2 border-black">
+                    <strong class="text-teal-900 block text-sm mb-1">2. Rigor Legal y Fuentes (20%)</strong>
+                    Identificación precisa de leyes colombianas (ej. Ley 1581, Ley 1480), decretos o entidades oficiales (SIC, AGN).
+                </div>
+                <div class="p-3 bg-yellow-50 rounded-xl border-2 border-black">
+                    <strong class="text-yellow-900 block text-sm mb-1">3. Análisis de Riesgo Empresarial (20%)</strong>
+                    Profundidad al argumentar los riesgos, sanciones o fallas de atención al cliente en la práctica real.
+                </div>
+                <div class="p-3 bg-pink-50 rounded-xl border-2 border-black">
+                    <strong class="text-pink-900 block text-sm mb-1">4. Calidad del Interrogatorio (20%)</strong>
+                    Formulación de preguntas técnicas inéditas y registro detallado de la defensa del vocero.
+                </div>
+                <div class="p-3 bg-orange-50 rounded-xl border-2 border-black">
+                    <strong class="text-orange-900 block text-sm mb-1">5. Transmisión Oportuna (20%)</strong>
+                    Envío exitoso de los datos a la consola central y generación del comprobante PDF de respaldo.
+                </div>
+            </div>
+
+            <button onclick="toggleModal('modal-rubrica')" class="sticker-btn bg-purple-800 text-white font-extrabold w-full py-3 rounded-xl">
+                ¡Entendido, volver a la inspección!
+            </button>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE LÓGICA Y FUNCIONALIDADES -->
+    <script>
+        const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbykP5mOpfvgjO-R3aMf2t8tzAg-nc5Tc2cpVmtpRh33C-ZwYUW9G9-CWr-bq7zVEv5s/exec";
+
+        // Función para sanitizar entradas HTML y evitar inyecciones en el reporte PDF
+        function escapeHTML(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function switchRonda(rondaNum) {
+            document.querySelectorAll('.ronda-block').forEach(b => b.classList.add('hidden'));
+            document.getElementById(`ronda-content-${rondaNum}`).classList.remove('hidden');
+
+            // Actualizar estado visual de los 6 botones de pestañas
+            [1, 2, 3, 4, 5, 6].forEach(n => {
+                const btn = document.getElementById(`tab-btn-${n}`);
+                if (n === rondaNum) {
+                    btn.classList.replace('bg-slate-200', 'bg-teal-400');
+                } else {
+                    btn.classList.replace('bg-teal-400', 'bg-slate-200');
+                }
+            });
+        }
+
+        function toggleModal(id) {
+            const m = document.getElementById(id);
+            if (!m) return;
+            m.classList.toggle('active');
+        }
+
+        function getFormData() {
+            const data = {
+                materia: document.getElementById('input-materia')?.value?.trim() || "Atención al Cliente 2",
+                actividad_id: document.getElementById('input-actividad-id')?.value?.trim() || "Clientes_2_ACT06",
+                grupo: document.getElementById('input-grupo')?.value?.trim() || "",
+                comision: document.getElementById('input-comision')?.value?.trim() || "",
+                participantes: document.getElementById('input-participantes')?.value?.trim() || "",
+
+                // Resumen compilado para compatibilidad con columnas Estándar (item1 al item5) con sanitización .trim()
+                item1: `[R1: ${document.getElementById('r1-grupo-evaluado')?.value?.trim() || 'N/A'}] ${document.getElementById('r1-q1')?.value?.trim() || ''}`,
+                item2: `[R2: ${document.getElementById('r2-grupo-evaluado')?.value?.trim() || 'N/A'}] ${document.getElementById('r2-q1')?.value?.trim() || ''}`,
+                item3: `[R3: ${document.getElementById('r3-grupo-evaluado')?.value?.trim() || 'N/A'}] ${document.getElementById('r3-q1')?.value?.trim() || ''}`,
+                item4: `[R4: ${document.getElementById('r4-grupo-evaluado')?.value?.trim() || 'N/A'}] ${document.getElementById('r4-q1')?.value?.trim() || ''}`,
+                item5: `[R5: ${document.getElementById('r5-grupo-evaluado')?.value?.trim() || 'N/A'}] ${document.getElementById('r5-q1')?.value?.trim() || ''} | [R6: ${document.getElementById('r6-grupo-evaluado')?.value?.trim() || 'N/A'}] ${document.getElementById('r6-q1')?.value?.trim() || ''}`,
+
+                estado: "Entregado"
+            };
+
+            // Mapear dinámicamente las 6 rondas con sanitización .trim()
+            [1, 2, 3, 4, 5, 6].forEach(n => {
+                data[`ronda${n}`] = {
+                    grupo: document.getElementById(`r${n}-grupo-evaluado`)?.value?.trim() || "",
+                    tema: document.getElementById(`r${n}-tema-revisado`)?.value?.trim() || "",
+                    coherencia: document.getElementById(`r${n}-q1`)?.value?.trim() || "",
+                    fuentes: document.getElementById(`r${n}-q2`)?.value?.trim() || "",
+                    riesgo: document.getElementById(`r${n}-q3`)?.value?.trim() || "",
+                    aprendizaje: document.getElementById(`r${n}-q4`)?.value?.trim() || "",
+                    pregunta: document.getElementById(`r${n}-q5a`)?.value?.trim() || "",
+                    respuesta: document.getElementById(`r${n}-q5b`)?.value?.trim() || ""
+                };
+            });
+
+            return data;
+        }
+
+        function checkRondaStatus(rNum) {
+            const g = document.getElementById(`r${rNum}-grupo-evaluado`)?.value?.trim();
+            const t = document.getElementById(`r${rNum}-tema-revisado`)?.value?.trim();
+            const q1 = document.getElementById(`r${rNum}-q1`)?.value?.trim();
+            const q2 = document.getElementById(`r${rNum}-q2`)?.value?.trim();
+
+            const isComplete = Boolean(g && t && q1 && q1.length >= 10 && q2);
+            const badge = document.getElementById(`badge-r${rNum}`);
+            const check = document.getElementById(`check-r${rNum}`);
+
+            if (isComplete) {
+                badge.className = "sticker-btn bg-lime-400 text-black text-[11px] font-extrabold px-2.5 py-1 rounded-xl";
+                badge.innerText = `R${rNum} 🟢`;
+
+                check.className = "p-2.5 bg-lime-100 border-2 border-black rounded-xl text-lime-900 flex items-center gap-2";
+                check.innerHTML = `<span>✓</span> R${rNum}: Lista`;
+            } else {
+                badge.className = "sticker-btn bg-orange-500 text-white text-[11px] font-extrabold px-2.5 py-1 rounded-xl";
+                badge.innerText = `R${rNum} 🔴`;
+
+                check.className = "p-2.5 bg-red-100 border-2 border-black rounded-xl text-red-800 flex items-center gap-2";
+                check.innerHTML = `<span>❌</span> R${rNum}: Incompleta`;
+            }
+        }
+
+        function autoSave() {
+            const data = getFormData();
+            localStorage.setItem('i3_libreta_inspeccion_6r_data', JSON.stringify(data));
+            [1, 2, 3, 4, 5, 6].forEach(checkRondaStatus);
+        }
+
+        function loadSavedData() {
+            const saved = localStorage.getItem('i3_libreta_inspeccion_6r_data');
+            if (!saved) return;
+            try {
+                const data = JSON.parse(saved);
+                if (data.grupo) document.getElementById('input-grupo').value = data.grupo;
+                if (data.comision) document.getElementById('input-comision').value = data.comision;
+                if (data.participantes) document.getElementById('input-participantes').value = data.participantes;
+
+                // Cargar las 6 Rondas
+                [1, 2, 3, 4, 5, 6].forEach(n => {
+                    const r = data[`ronda${n}`];
+                    if (r) {
+                        if (r.grupo) document.getElementById(`r${n}-grupo-evaluado`).value = r.grupo;
+                        if (r.tema) document.getElementById(`r${n}-tema-revisado`).value = r.tema;
+                        if (r.coherencia) document.getElementById(`r${n}-q1`).value = r.coherencia;
+                        if (r.fuentes) document.getElementById(`r${n}-q2`).value = r.fuentes;
+                        if (r.riesgo) document.getElementById(`r${n}-q3`).value = r.riesgo;
+                        if (r.aprendizaje) document.getElementById(`r${n}-q4`).value = r.aprendizaje;
+                        if (r.pregunta) document.getElementById(`r${n}-q5a`).value = r.pregunta;
+                        if (r.respuesta) document.getElementById(`r${n}-q5b`).value = r.respuesta;
+                    }
+                    checkRondaStatus(n);
+                });
+            } catch (e) {
+                console.error("Error al cargar localStorage", e);
+            }
+        }
+
+        function downloadBackup() {
+            const data = getFormData();
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `CoEvaluacion6R_${data.actividad_id}_${data.grupo || 'Grupo'}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    localStorage.setItem('i3_libreta_inspeccion_6r_data', JSON.stringify(data));
+                    loadSavedData();
+                    alert("¡Datos de las 6 rondas cargados exitosamente desde la copia de seguridad!");
+                } catch (err) {
+                    alert("Error: El archivo no contiene un formato JSON válido.");
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        async function sendData() {
+            const btn = document.getElementById('btn-send');
+            const status = document.getElementById('send-status');
+            const data = getFormData();
+
+            if (!data.grupo || !data.participantes) {
+                alert("Por favor completa los datos de la Ficha y los Integrantes en la Pantalla 1 antes de enviar.");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerText = "⏳ Transmitiendo datos...";
+            status.classList.remove('hidden', 'text-red-600', 'text-green-600');
+            status.innerText = "Enviando co-evaluación de 6 rondas al servidor docente...";
+
+            try {
+                await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                status.classList.add('text-green-600');
+                status.innerText = "¡Co-evaluaciones transmitidas con éxito! Procede a descargar tu comprobante PDF.";
+                alert("¡Envío exitoso! Las 6 co-evaluaciones quedaron registradas en el sistema.");
+            } catch (error) {
+                console.error("Error al transmitir", error);
+                status.classList.add('text-red-600');
+                status.innerText = "Hubo un problema de conexión. Intenta nuevamente o descarga tu JSON.";
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "📤 Transmitir Co-evaluaciones al Docente ▶";
+            }
+        }
+
+        function openPreview() {
+            const data = getFormData();
+            const printWindow = window.open('', '_blank');
+
+            const content = `
+                <!DOCTYPE html>
+                <html lang="es">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Reporte de Inspección (6 Rondas) - ${escapeHTML(data.actividad_id)}</title>
+                    <style>
+                        @page { size: letter; margin: 12mm; }
+                        body { font-family: Arial, sans-serif; padding: 20px; color: #1e293b; line-height: 1.4; }
+                        .header { border-bottom: 3px solid #1e40af; padding-bottom: 10px; margin-bottom: 20px; }
+                        .title { font-size: 20px; font-weight: bold; color: #1e40af; }
+                        .subtitle { font-size: 13px; color: #64748b; }
+                        .box { border: 1px solid #cbd5e1; padding: 10px; border-radius: 8px; margin-bottom: 10px; background-color: #f8fafc; page-break-inside: avoid; break-inside: avoid; word-wrap: break-word; overflow-wrap: break-word; }
+                        .label { font-size: 10px; font-weight: bold; color: #475569; text-transform: uppercase; }
+                        .val { font-size: 12px; font-weight: bold; color: #0f172a; margin-top: 2px; white-space: pre-wrap; word-break: break-word; }
+                        .ronda-title { font-size: 14px; font-weight: bold; color: #6b21a8; margin-top: 14px; border-bottom: 1px solid #6b21a8; padding-bottom: 3px; page-break-after: avoid; break-after: avoid; }
+                        .no-print { margin-bottom: 20px; }
+                        @media print { .no-print { display: none !important; } }
+                    </style>
+                </head>
+                <body>
+                    <div class="no-print">
+                        <button onclick="window.print()" style="background-color: #1e40af; color: white; border: none; padding: 10px 20px; font-weight: bold; border-radius: 6px; cursor: pointer;">
+                            🖨️ Imprimir o Guardar como PDF
+                        </button>
+                    </div>
+
+                    <div class="header">
+                        <div class="title">Instituto I3 - Comprobante de Co-evaluación (Rotación Completa 6 Rondas)</div>
+                        <div class="subtitle">Módulo: ${escapeHTML(data.materia)} | Código Actividad: ${escapeHTML(data.actividad_id)}</div>
+                    </div>
+
+                    <div class="box">
+                        <div class="label">Comisión Auditora / Ficha</div>
+                        <div class="val">${escapeHTML(data.comision)} (${escapeHTML(data.grupo)})</div>
+                        <div class="label" style="margin-top:6px;">Integrantes</div>
+                        <div class="val">${escapeHTML(data.participantes)}</div>
+                    </div>
+
+                    ${[1, 2, 3, 4, 5, 6].map(n => {
+                        const r = data[`ronda${n}`];
+                        return `
+                            <div class="ronda-title">Ronda ${n} de Inspección: ${escapeHTML(r.grupo) || 'N/A'} (${escapeHTML(r.tema) || 'Sin tema'})</div>
+                            <div class="box">
+                                <div class="label">1. Coherencia Conceptual</div>
+                                <div class="val">${escapeHTML(r.coherencia) || 'Sin registro'}</div>
+                                <div class="label" style="margin-top:4px;">2. Fuentes Oficiales / Leyes Citadas</div>
+                                <div class="val">${escapeHTML(r.fuentes) || 'Sin registro'}</div>
+                                <div class="label" style="margin-top:4px;">3. Riesgo Empresarial Identificado</div>
+                                <div class="val">${escapeHTML(r.riesgo) || 'Sin registro'}</div>
+                                <div class="label" style="margin-top:4px;">4. Aprendizaje Clave de la Comisión</div>
+                                <div class="val">${escapeHTML(r.aprendizaje) || 'Sin registro'}</div>
+                                <div class="label" style="margin-top:4px;">5. Pregunta Inédita y Defensa del Vocero</div>
+                                <div class="val">P: ${escapeHTML(r.pregunta) || 'N/A'}<br>R: ${escapeHTML(r.respuesta) || 'N/A'}</div>
+                            </div>
+                        `;
+                    }).join('')}
+
+                    <div style="margin-top: 20px; text-align: center; font-size: 11px; color: #94a3b8;">
+                        Comprobante generado automáticamente por la Libreta Digital i3 - Estado: ${escapeHTML(data.estado)}
+                    </div>
+
+                    <script>
+                        window.onload = function() {
+                            setTimeout(function() {
+                                window.print();
+                            }, 400);
+                        };
+                    <\/script>
+                </body>
+                </html>
+            `;
+
+            printWindow.document.write(content);
+            printWindow.document.close();
+        }
+
+        window.onload = function() {
+            loadSavedData();
+        };
+    </script>
+</body>
+</html>
